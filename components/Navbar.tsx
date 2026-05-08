@@ -49,11 +49,11 @@ export function Navbar() {
         </nav>
 
         <div className="hidden md:flex items-center gap-2">
-          <a href="#send" className="px-4 py-2 rounded-full text-sm font-semibold bg-white/5 border border-white/10 hover:bg-white/10 transition">
+          <a href="/signin" className="px-4 py-2 rounded-full text-sm font-semibold bg-white/5 border border-white/10 hover:bg-white/10 transition">
             Sign in
           </a>
-          <a href="#send" className="px-4 py-2 rounded-full text-sm font-semibold btn-grad hover:scale-[1.03] transition-transform">
-            Send money
+          <a href="/signup" className="px-4 py-2 rounded-full text-sm font-semibold btn-grad hover:scale-[1.03] transition-transform">
+            Get started
           </a>
         </div>
 
@@ -85,13 +85,10 @@ export function Navbar() {
                   {l.label}
                 </a>
               ))}
-              <a
-                href="#send"
-                onClick={() => setOpen(false)}
-                className="mt-2 px-4 py-3 rounded-full text-sm font-semibold btn-grad text-center"
-              >
-                Send money
-              </a>
+              <div className="mt-2 grid grid-cols-2 gap-2">
+                <a href="/signin" onClick={() => setOpen(false)} className="px-4 py-3 rounded-full text-sm font-semibold bg-white/5 border border-white/10 text-center">Sign in</a>
+                <a href="/signup" onClick={() => setOpen(false)} className="px-4 py-3 rounded-full text-sm font-semibold btn-grad text-center">Get started</a>
+              </div>
             </div>
           </motion.div>
         )}
