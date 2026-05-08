@@ -1,32 +1,35 @@
 import { NextResponse } from 'next/server';
-import { CURRENCIES, FALLBACK_RATES_TO_GHS } from '@/lib/currencies';
+import { FALLBACK_RATES_TO_GHS } from '@/lib/currencies';
 
 export const revalidate = 60; // cache rates for 60s
+export const dynamic = 'force-dynamic';
 
-// Returns: { base: 'GHS', rates: { USD: <usd_per_ghs>, ... }, ratesToGhs: { USD: <ghs_per_usd>, ... }, fetchedAt }
+// open.er-api.com base GHS returns: 1 GHS = X foreign units.
+// So GHS_per_unit = 1 / X. Free, no API key.
 export async function GET() {
-  const symbols = CURRENCIES.map((c) => c.code).join(',');
-
   try {
-    const res = await fetch(
-      `https://api.exchangerate.host/latest?base=GHS&symbols=${symbols}`,
-      { next: { revalidate: 60 } }
-    );
+    const res = await fetch('https://open.er-api.com/v6/latest/GHS', {
+      next: { revalidate: 60 },
+    });
     if (!res.ok) throw new Error('upstream ' + res.status);
-    const data = (await res.json()) as { rates?: Record<string, number> };
+    const data = (await res.json()) as {
+      result?: string;
+      rates?: Record<string, number>;
+      time_last_update_utc?: string;
+    };
+    if (data.result !== 'success' || !data.rates) throw new Error('bad payload');
 
     const ratesToGhs: Record<string, number> = { ...FALLBACK_RATES_TO_GHS };
-    if (data.rates) {
-      for (const [code, ghsPerUnit] of Object.entries(data.rates)) {
-        if (ghsPerUnit > 0) ratesToGhs[code] = 1 / ghsPerUnit;
-      }
+    for (const [code, foreignPerGhs] of Object.entries(data.rates)) {
+      if (foreignPerGhs > 0) ratesToGhs[code] = 1 / foreignPerGhs;
     }
 
     return NextResponse.json({
       base: 'GHS',
       ratesToGhs,
       fetchedAt: new Date().toISOString(),
-      source: 'exchangerate.host',
+      sourceUpdatedUtc: data.time_last_update_utc ?? null,
+      source: 'open.er-api.com',
     });
   } catch {
     return NextResponse.json({

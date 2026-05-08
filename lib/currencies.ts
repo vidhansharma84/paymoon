@@ -27,22 +27,22 @@ export const CURRENCIES: Currency[] = [
 // Mid-market fallback rates: 1 unit FROM-currency = X GHS
 // (Used when the live API is unreachable — keeps the calculator usable.)
 export const FALLBACK_RATES_TO_GHS: Record<string, number> = {
-  USD: 12.4500,
-  GBP: 15.8200,
-  EUR: 13.5400,
-  CAD:  9.1300,
-  AUD:  8.2100,
-  AED:  3.3900,
-  CHF: 14.0500,
-  JPY:  0.0830,
-  CNY:  1.7200,
-  INR:  0.1490,
+  USD: 11.2462,
+  GBP: 15.3144,
+  EUR: 13.2347,
+  CAD:  8.2514,
+  AUD:  8.1513,
+  AED:  3.0623,
+  CHF: 14.4672,
+  JPY:  0.0720,
+  CNY:  1.6500,
+  INR:  0.1191,
   NGN:  0.0083,
-  ZAR:  0.6900,
-  KES:  0.0960,
-  SAR:  3.3200,
-  SEK:  1.1700,
-  NOK:  1.1300,
+  ZAR:  0.6886,
+  KES:  0.0871,
+  SAR:  2.9990,
+  SEK:  1.2200,
+  NOK:  1.2126,
 };
 
 export const FEE_GHS = 0.20; // The legendary 20-pesewa flat fee
