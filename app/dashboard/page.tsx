@@ -5,6 +5,11 @@ import { Menu } from 'lucide-react';
 import { Background } from '@/components/Background';
 import { DashboardSidebar } from '@/components/DashboardSidebar';
 import { DashboardOverview } from '@/components/DashboardOverview';
+import { DashboardSend } from '@/components/DashboardSend';
+import { DashboardTransactions } from '@/components/DashboardTransactions';
+import { DashboardRecipients } from '@/components/DashboardRecipients';
+import { DashboardCards } from '@/components/DashboardCards';
+import { DashboardInsights } from '@/components/DashboardInsights';
 import { Logo } from '@/components/Logo';
 import { getSession, type Session } from '@/lib/auth';
 
@@ -42,13 +47,12 @@ export default function DashboardPage() {
         </header>
 
         <div className="px-[4vw] lg:px-8 py-6 lg:py-10 max-w-6xl mx-auto">
-          {tab === 'overview' && <DashboardOverview user={user} />}
-          {tab !== 'overview' && (
-            <div className="glass rounded-3xl p-12 text-center">
-              <h2 className="font-display text-2xl font-bold mb-2">Coming soon</h2>
-              <p className="text-ink-dim">The “{tab}” section is under construction. 🌙</p>
-            </div>
-          )}
+          {tab === 'overview'     && <DashboardOverview user={user} />}
+          {tab === 'send'         && <DashboardSend />}
+          {tab === 'transactions' && <DashboardTransactions />}
+          {tab === 'recipients'   && <DashboardRecipients />}
+          {tab === 'cards'        && <DashboardCards />}
+          {tab === 'insights'     && <DashboardInsights />}
         </div>
       </main>
     </div>
