@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #07091a;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: radial-gradient(ellipse at top, #131845 0%, #07091a 55%);
+  color: theme('colors.ink.DEFAULT');
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Glass card utility */
+.glass {
+  background: linear-gradient(155deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
+  border: 1px solid rgba(255,255,255,0.09);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.text-grad {
+  background: linear-gradient(135deg, #ffd86b 0%, #ff8a3d 50%, #c45cff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.btn-grad {
+  background: linear-gradient(135deg, #ffd86b 0%, #ff8a3d 50%, #c45cff 100%);
+  color: #1a0f00;
+  box-shadow: 0 10px 30px -10px rgba(255,138,61,.6), inset 0 1px 0 rgba(255,255,255,.4);
+}
+
+/* Subtle scrollbar inside currency picker */
+.scroll-soft::-webkit-scrollbar { width: 8px; }
+.scroll-soft::-webkit-scrollbar-thumb { background: rgba(255,255,255,.12); border-radius: 8px; }
+.scroll-soft::-webkit-scrollbar-track { background: transparent; }
+
+/* Hide number input spinners */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+input[type="number"] { -moz-appearance: textfield; }
+
+/* Marquee for trust strip */
+.marquee {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
